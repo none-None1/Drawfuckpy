@@ -23,7 +23,8 @@ stat_label=Label(wnd)
 stat_label.config(textvariable=stat)
 stat_label.place(x=0,y=256,height=28,width=512)
 def click():
-    global running,curtime,insts,ip,p,tape,code,inp,img,itk,mat
+    global running,curtime,insts,ip,p,tape,code,inp,img,itk,mat,xy
+    xy=(0,0)
     code, inp = code_editor.get('0.0', END), input_editor.get('0.0', END)
     ip,p,tape=0,0,[0]*1000000
     running=True
@@ -93,6 +94,14 @@ def runonce():
         xy=tape[p],xy[1]
     if code[ip]=='y':
         xy=xy[0],tape[p]
+    if code[ip]=='w':
+        xy=xy[0]-1,xy[1]
+    if code[ip]=='e':
+        xy=xy[0]+1,xy[1]
+    if code[ip]=='s':
+        xy=xy[0],xy[1]+1
+    if code[ip]=='n':
+        xy=xy[0],xy[1]-1
     if code[ip]=='[':
         if not tape[p]:
             ip=mat[ip]
